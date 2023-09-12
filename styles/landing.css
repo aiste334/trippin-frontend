@@ -1,0 +1,59 @@
+.icon {
+    color: #ff5722;
+}
+
+.destination {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 13px;
+
+    display: flex;
+}
+
+.destination .content {
+    padding: 19px;
+    width: 326px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.destination .content .prefix {
+    display: flex;
+    gap: 12px;
+}
+
+.destination img {
+    width: 125px;
+    height: 168px;
+    border-radius: 5px;
+}
+
+.destination .country {
+    color: #333333;
+    text-transform: uppercase;
+    letter-spacing: 17%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.destination a.google-maps {
+    color: #918E9B;
+    text-decoration: underline;
+}
+
+.destination .title {
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 30px;
+}
+
+.destination .date {
+    font-weight: 700;
+    padding-top: 12px;
+}
+
+.destination .description {
+
+}

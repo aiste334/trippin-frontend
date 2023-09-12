@@ -1,0 +1,27 @@
+h1{
+    text-align: center;
+    margin-top: 50px;
+}
+hr {
+    width: 216px;
+    position: relative;
+    margin: auto;
+    margin-bottom: 30px;
+    border-top: 2px solid #ff5722;
+    height: 3px;
+}
+
+#destination-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: fit-content;
+    align-items: center;
+    gap: 40px;
+}
+
+#container-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

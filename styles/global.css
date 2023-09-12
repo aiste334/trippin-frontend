@@ -66,11 +66,27 @@ label {
     height: 15px;
     padding-left: 13px;
     font-size: 10px;
-    line-height: 15px;
-    color: #333;
+    line-height: 13px;
+
+    display: flex;
 }
 
-input {
+.destination .content {
+    padding: 19px;
+    width: 326px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.destination .content .prefix {
+    display: flex;
+    gap: 12px;
+}
+
+.destination img {
+    width: 125px;
+    height: 168px;
     border-radius: 5px;
     border-width: 2px 0px 0px 2px;
     border-color: #FF8A50;

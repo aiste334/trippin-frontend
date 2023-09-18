@@ -9,20 +9,66 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 async function loadDestinations () {
-    // GET from API
     const destinations = await getDestinations()
 
-    // Create DOM elements
     destinations.forEach(destination => renderDestination(destination))
 }
 
 async function getDestinations() {
-    const response = await fetch('https://localhost:3009/')
+    const response = await fetch('http://localhost:3009/')
     const destinations = await response.json()
-
     return destinations
 }
 
 function renderDestination(destination) {
+    const destinationContainer = document.getElementById("destination-container");
 
+    const destinationElement = document.createElement("div");
+    destinationElement.classList.add("destination");
+
+    const imageElement = document.createElement("img");
+    imageElement.src = destination.image;
+    imageElement.alt = destination.title;
+    
+    const contentElement = document.createElement("div");
+    contentElement.classList.add("content");
+
+    const prefixElement = document.createElement("div");
+    prefixElement.classList.add("prefix");
+
+    const countrySpan = document.createElement("span");
+    countrySpan.classList.add("country");
+
+    const googleMapsLink = document.createElement("a");
+    googleMapsLink.href = destination.mapLink;
+    googleMapsLink.classList.add("google-maps");
+    googleMapsLink.textContent = "View on Google Maps";
+
+    prefixElement.appendChild(countrySpan);
+    prefixElement.appendChild(googleMapsLink);
+
+    const titleElement = document.createElement("h2");
+    titleElement.classList.add("title");
+    titleElement.textContent = destination.title;
+
+    const dateSpan = document.createElement("span");
+    dateSpan.classList.add("date");
+    dateSpan.textContent = `${destination.arrivalDate} - ${destination.departureDate}`;
+
+    const descriptionElement = document.createElement("p");
+    descriptionElement.classList.add("description");
+    descriptionElement.textContent = destination.description;
+
+    const divider = document.createElement("div");
+    descriptionElement.classList.add("divider");
+
+    contentElement.appendChild(prefixElement);
+    contentElement.appendChild(titleElement);
+    contentElement.appendChild(dateSpan);
+    contentElement.appendChild(descriptionElement);
+    destinationElement.appendChild(imageElement);
+    destinationElement.appendChild(contentElement);
+    prefixElement.appendChild(divider);
+
+    destinationContainer.appendChild(destinationElement);
 }

@@ -15,12 +15,13 @@ async function loadDestinations() {
 }
 
 async function getDestinations() {
-  const response = await fetch("http://localhost:3009/")
+  const response = await fetch("http://localhost:3009/destinations")
   const destinations = await response.json()
   return destinations
 }
 
 function renderDestination(destination) {
+  console.log(destination)
   const destinationContainer = document.getElementById("destination-container")
 
   const destinationElement = document.createElement("div")
@@ -38,6 +39,7 @@ function renderDestination(destination) {
 
   const countrySpan = document.createElement("span")
   countrySpan.classList.add("country")
+  countrySpan.value = destination.country
 
   const googleMapsLink = document.createElement("a")
   googleMapsLink.href = destination.mapLink
@@ -53,7 +55,7 @@ function renderDestination(destination) {
 
   const dateSpan = document.createElement("span")
   dateSpan.classList.add("date")
-  dateSpan.textContent = `${destination.arrivalDate} - ${destination.departureDate}`
+  dateSpan.textContent = `${destination["arrival-date"]} - ${destination["departure-date"]}`
 
   const descriptionElement = document.createElement("p")
   descriptionElement.classList.add("description")

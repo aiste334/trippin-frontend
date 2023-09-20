@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
   saveButton.addEventListener("click", saveDestination)
 })
 
-function saveDestination(e) {
+async function saveDestination(e) {
   e.preventDefault()
   const form = document.getElementById("destination-form")
   const fd = new FormData(form)
 
-  console.log(fd.get("image"))
+  console.log(await fileToBase64(fd.get("image")))
 
   const formDataObject = {
     country: fd.get("country"),
@@ -22,7 +22,7 @@ function saveDestination(e) {
     link: fd.get("link"),
     arrivalDate: fd.get("arrival-date"),
     departureDate: fd.get("departure-date"),
-    image: fd.get("image"),
+    image: await fileToBase64(fd.get("image")),
     description: fd.get("description"),
   }
 
@@ -45,4 +45,20 @@ function saveDestination(e) {
       console.error("Error:", error)
       alert("An error occurred while creating the destination.")
     })
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+
+    reader.onload = () => {
+      resolve(reader.result)
+    }
+
+    reader.onerror = () => {
+      reject(new Error("Error reading the file."))
+    }
+
+    reader.readAsDataURL(file)
+  })
 }

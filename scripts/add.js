@@ -36,7 +36,6 @@ async function saveDestination(e) {
     .then((response) => {
       if (response.status === 201) {
         alert("Destination created successfully!");
-        fd.resetFields();
       } else {
         alert("Failed to create destination.");
       }

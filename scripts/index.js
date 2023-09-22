@@ -55,6 +55,7 @@ function renderDestination(destination) {
    googleMapsLink.href = destination.link
 
   googleMapsLink.classList.add("google-maps")
+  googleMapsLink.target = "_blank";
   googleMapsLink.textContent = "View on Google Maps"
 
   prefixElement.appendChild(countrySpan)

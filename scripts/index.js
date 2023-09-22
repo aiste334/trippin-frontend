@@ -28,7 +28,12 @@ function renderDestination(destination) {
   destinationElement.classList.add("destination")
 
   const imageElement = document.createElement("img")
-  imageElement.src = destination.image
+  if(destination.image == "data:application/octet-stream;base64,"){
+    imageElement.src = "../default.png"
+  }
+  else{
+    imageElement.src = destination.image
+  }
   imageElement.alt = destination.title
 
   const contentElement = document.createElement("div")
@@ -39,10 +44,16 @@ function renderDestination(destination) {
 
   const countrySpan = document.createElement("span")
   countrySpan.classList.add("country")
-  countrySpan.value = destination.country
+  countrySpan.innerText = destination.country
+                     
+  const svgData = '<svg width="8" height="10" viewBox="0 0 8 10" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M4.07866 5.25002C3.15532 5.25002 2.40837 4.50221 2.40837 3.57965C2.40837 2.65757 3.15532 1.90911 4.07866 1.90911C5.00167 1.90911 5.74927 2.65757 5.74927 3.57965C5.74927 4.50221 5.00167 5.25002 4.07866 5.25002ZM3.98394 0C2.04227 0 0.5 1.63678 0.5 3.65569C0.5 6.40791 3.45078 9.25191 3.45078 9.25191C3.84777 9.62783 4.09437 9.65847 4.51646 9.25191C4.51646 9.25191 7.5 6.40791 7.5 3.65569C7.5 1.63678 5.92544 0 3.98394 0Z" fill="#FF5722"/></svg>'
+  const svgElement = document.createElement("svg");
+  svgElement.innerHTML = svgData;
+  prefixElement.appendChild(svgElement);
 
   const googleMapsLink = document.createElement("a")
-  googleMapsLink.href = destination.mapLink
+   googleMapsLink.href = destination.link
+
   googleMapsLink.classList.add("google-maps")
   googleMapsLink.textContent = "View on Google Maps"
 
@@ -55,14 +66,14 @@ function renderDestination(destination) {
 
   const dateSpan = document.createElement("span")
   dateSpan.classList.add("date")
-  dateSpan.textContent = `${destination["arrival-date"]} - ${destination["departure-date"]}`
+  dateSpan.textContent = `${destination["arrivalDate"]} - ${destination["departureDate"]}`
 
   const descriptionElement = document.createElement("p")
   descriptionElement.classList.add("description")
   descriptionElement.textContent = destination.description
 
-  const divider = document.createElement("div")
-  descriptionElement.classList.add("divider")
+  const dividerLine = document.createElement("div")
+  dividerLine.classList.add("divider")
 
   contentElement.appendChild(prefixElement)
   contentElement.appendChild(titleElement)
@@ -70,7 +81,6 @@ function renderDestination(destination) {
   contentElement.appendChild(descriptionElement)
   destinationElement.appendChild(imageElement)
   destinationElement.appendChild(contentElement)
-  prefixElement.appendChild(divider)
-
   destinationContainer.appendChild(destinationElement)
+  destinationContainer.appendChild(dividerLine)
 }

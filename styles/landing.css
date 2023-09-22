@@ -27,6 +27,7 @@
     width: 125px;
     height: 168px;
     border-radius: 5px;
+    object-fit: cover;
 }
 
 .destination .country {
@@ -85,4 +86,8 @@ hr {
     gap: 2rem;
     align-items: center;
     justify-content: center;
+}
+
+img .tiny-icon {
+    size: 5px, 5px !important
 }

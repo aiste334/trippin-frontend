@@ -10,11 +10,11 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 async function saveDestination(e) {
-  e.preventDefault();
-  const form = document.getElementById("destination-form");
-  const fd = new FormData(form);
+  e.preventDefault()
+  const form = document.getElementById("destination-form")
+  const fd = new FormData(form)
 
-  const imageBase64 = await fileToBase64(fd.get("image"));
+  const imageBase64 = await fileToBase64(fd.get("image"))
 
   const formDataObject = {
     country: fd.get("country"),
@@ -22,11 +22,11 @@ async function saveDestination(e) {
     link: fd.get("link"),
     arrivalDate: fd.get("arrival-date"),
     departureDate: fd.get("departure-date"),
-    image: imageBase64, 
+    image: imageBase64,
     description: fd.get("description"),
-  };
+  }
 
-  fetch("http://localhost:3009/destination", {
+  fetch("http://localhost:3009/destinations", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -35,33 +35,32 @@ async function saveDestination(e) {
   })
     .then((response) => {
       if (response.status === 201) {
-        alert("Destination created successfully!");
+        alert("Destination created successfully!")
+        window.location.href = "/"
       } else {
-        alert("Failed to create destination.");
+        alert("Failed to create destination.")
       }
     })
     .catch((error) => {
-      console.error("Error:", error);
-      alert("An error occurred while creating the destination.");
-    });
+      console.error("Error:", error)
+      alert("An error occurred while creating the destination.")
+    })
 }
 
-function resetFields(){
-
-}
+function resetFields() {}
 
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
-    const reader = new FileReader();
+    const reader = new FileReader()
 
     reader.onload = () => {
-      resolve(reader.result);
-    };
+      resolve(reader.result)
+    }
 
     reader.onerror = () => {
-      reject(new Error("Error reading the file."));
-    };
+      reject(new Error("Error reading the file."))
+    }
 
-    reader.readAsDataURL(file);
-  });
+    reader.readAsDataURL(file)
+  })
 }

@@ -21,6 +21,9 @@
 .destination .content .prefix {
     display: flex;
     gap: 12px;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
 }
 
 .destination img {
@@ -58,10 +61,12 @@
 .destination .description {
 
 }
+
 h1{
     text-align: center;
     margin-top: 50px;
 }
+
 hr {
     width: 216px;
     position: relative;
@@ -90,4 +95,28 @@ hr {
 
 img .tiny-icon {
     size: 5px, 5px !important
+}
+
+.action-icon {
+    justify-self: end;
+    align-self: flex-end;
+
+    cursor: pointer;
+    opacity: 0;
+}
+
+.destination:hover .action-icon {
+    opacity: 0.5;
+}
+
+.destination:hover .action-icon:hover {
+    opacity: 1;
+}
+
+.pending {
+    opacity: 0.5;
+}
+
+.destination.hidden {
+    display: none;
 }

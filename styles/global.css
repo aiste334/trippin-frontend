@@ -20,10 +20,21 @@ header {
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;
-    display: flex;
-    align-items: center;
+    /* flex-direction: row; */
     gap: 12px;
     padding: 12px;
+}
+
+div.header-wrapper {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav.auth-nav {
+    /* margin-left: auto;
+    flex-direction: row; */
+    display: flex;
+    align-items: center;
 }
 
 .divider {
@@ -52,8 +63,7 @@ button {
     font-size: 20px;
     line-height: 24px;
     cursor: pointer;
-    margin-top: 50px;
-    margin-bottom: 50px;
+
 }
 
 button.cancel {
@@ -63,7 +73,15 @@ button.cancel {
 
 button.add-entry {
     padding: 12px;
+    margin-bottom: 50px;
 }
+
+button.login-btn, .signup-btn{
+    padding: 5px 15px;
+    margin-left: 10px;
+    height: 30px;
+}
+
 
 label {
     height: 15px;

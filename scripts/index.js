@@ -90,9 +90,11 @@ function renderDestination(destination) {
   editButton.classList.add("action-icon")
   editButton.innerText = "edit"
   editButton.dataset.destinationId = destination._id;
-  editButton.addEventListener("click", async () => {
+  editButton.addEventListener("click", () => {
     const destinationId = editButton.dataset.destinationId;
-    window.location.href = `/destination/${destinationId}`;
+  const updateUrl = `/update/index.html?id=${destinationId}`;
+  console.log("Redirecting to:", updateUrl);
+  window.location.href = updateUrl;
   })
 
   prefixElement.appendChild(countrySpan)

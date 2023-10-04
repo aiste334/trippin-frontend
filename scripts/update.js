@@ -1,13 +1,13 @@
 document.addEventListener("DOMContentLoaded", () => {
     const cancelButton = document.querySelector("#cancel");
-    const updateButton = document.querySelector("#save"); 
+    const updateButton = document.querySelector("#save");
 
     cancelButton.addEventListener("click", () => {
         window.location.href = "/";
     });
 
     updateButton.addEventListener("click", updateDestination);
-    loadDestinations()
+    loadDestination(); // Load the destination data when the form loads
 });
 
 async function updateDestination(e) {
@@ -29,7 +29,7 @@ async function updateDestination(e) {
     };
 
     fetch(`http://localhost:3009/destinations/${destinationId}`, {
-        method: "PUT", 
+        method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
@@ -68,19 +68,20 @@ function fileToBase64(file) {
         reader.readAsDataURL(file);
     });
 }
-
 function getDestinationIdFromURL() {
-    const pathComponents = window.location.pathname.split('/');
-    const lastPathComponent = pathComponents[pathComponents.length - 1];
+    const url = window.location.href;
+    const idIndex = url.lastIndexOf("=");
 
-    if (!isNaN(lastPathComponent)) {
-        console.log(`Destination ID extracted: ${lastPathComponent}`);
-        return lastPathComponent;
+    if (idIndex !== -1) {
+        const destinationId = url.slice(idIndex + 1);
+        console.log("destination id extracted "+ destinationId);
+        return destinationId;
     } else {
-        console.log(`Invalid Destination ID in URL: ${lastPathComponent}`);
+        console.log(`Invalid or missing Destination ID in URL`);
         return null;
     }
 }
+
 
 async function loadDestination() {
     const destinationId = getDestinationIdFromURL();
@@ -100,11 +101,6 @@ async function loadDestination() {
                 form.elements["departure-date"].value = destinationData.departureDate || "";
                 form.elements.description.value = destinationData.description || "";
 
-                // Display the current image if available
-                if (destinationData.image) {
-                    const imagePreview = document.getElementById("image-preview");
-                    imagePreview.src = destinationData.image;
-                }
             } else {
                 console.error("Failed to fetch destination data.");
             }

@@ -85,6 +85,9 @@ function getDestinationIdFromURL() {
 
 async function loadDestination() {
     const destinationId = getDestinationIdFromURL();
+    const imageContainer = document.getElementById("destination-container")
+    imageContainer.classList.add("destination")
+
 
     if (destinationId) {
         try {
@@ -100,6 +103,15 @@ async function loadDestination() {
                 form.elements["arrival-date"].value = destinationData.arrivalDate || "";
                 form.elements["departure-date"].value = destinationData.departureDate || "";
                 form.elements.description.value = destinationData.description || "";
+
+                const imageElement = document.createElement("img")
+                if (destinationData.image == "data:application/octet-stream;base64,") {
+                    imageElement.src = "../default.png"
+                } else {
+                    imageElement.src = destinationData.image
+                }
+                imageElement.alt = destinationData.title
+                imageContainer.appendChild(imageElement)
 
             } else {
                 console.error("Failed to fetch destination data.");

@@ -82,6 +82,7 @@ function renderDestination(destination) {
     if (result) {
       destinationElement.classList.add("hidden")
       dividerLine.classList.add("hidden")
+      dividerLine.style.display = "none";
     }
   })
 

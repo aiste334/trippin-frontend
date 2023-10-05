@@ -17,12 +17,11 @@ async function login(){
         },
         body: JSON.stringify(body),
       })
-        .then((response) => {
-          if (response.status === 201) {
-            alert("Logged in successfully!")
-            window.location.href = "/"
-          } else {
-            alert("Failed to log in.")
+        .then((response) => response.json())
+        .then(data => {
+          if(data.token){
+            document.cookie = `access_token=${data.token}; path=/;`
+            window.location.href="/"
           }
         })
         .catch((error) => {

@@ -1,12 +1,61 @@
 document.addEventListener("DOMContentLoaded", () => {
   const addButton = document.querySelector("#add-entry")
+  const loginButton = document.getElementById("login-btn");
+  const signupButton = document.getElementById("signup-btn");
+  const logoutButton = document.getElementById("logout-btn");
+
 
   addButton.addEventListener("click", () => {
     window.location.href = "/add"
   })
 
+  loginButton.addEventListener("click", () => {
+    window.location.href = "/login"
+  })
+
+  signupButton.addEventListener("click", () => {
+    window.location.href = "/signup"
+  })
+
+  logoutButton.addEventListener("click", logOut);
+
   loadDestinations()
 })
+
+function isAccessTokenExists() {
+  return document.cookie.includes("access_token")
+}
+
+window.onload = () => {
+
+  // Adjust for logged in users
+  if(isAccessTokenExists()){
+      document.querySelectorAll('.unauthorized').forEach((element) => { element.classList.add('hidden'); });
+      document.querySelectorAll('.authorized').forEach((element) => { element.classList.remove('hidden'); });
+  };
+}
+
+
+
+async function logOut() {
+  try {
+
+    // const accessTokenExists = isAccessTokenExists();
+    //   if (accessTokenExists) {
+    //     console.log("Access Token exists in cookies.");
+    //   } else {
+    //     console.log("Access Token does not exist in cookies.");
+    //   }
+
+
+    document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    window.location.href = "/";
+    // Logout was successful
+  } catch (err) {
+    console.error("Error:", err);
+    alert("An error occurred while logging out.");
+  }
+}
 
 async function loadDestinations() {
   const destinations = await getDestinations()

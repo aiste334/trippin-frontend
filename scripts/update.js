@@ -1,87 +1,86 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const cancelButton = document.querySelector("#cancel");
-    const updateButton = document.querySelector("#save");
+  const cancelButton = document.querySelector("#cancel")
+  const updateButton = document.querySelector("#save")
 
-    cancelButton.addEventListener("click", () => {
-        window.location.href = "/";
-    });
+  cancelButton.addEventListener("click", () => {
+    window.location.href = "/"
+  })
 
-    updateButton.addEventListener("click", updateDestination);
-    loadDestination(); // Load the destination data when the form loads
-});
+  updateButton.addEventListener("click", updateDestination)
+  loadDestination() // Load the destination data when the form loads
+})
 
 async function updateDestination(e) {
-    e.preventDefault();
-    const form = document.getElementById("destination-form");
-    const fd = new FormData(form);
-    const destinationId = getDestinationIdFromURL();
+  e.preventDefault()
+  const form = document.getElementById("destination-form")
+  const fd = new FormData(form)
+  const destinationId = getDestinationIdFromURL()
 
-    const imageBase64 = await fileToBase64(fd.get("image"));
+  const imageBase64 = await fileToBase64(fd.get("image"))
 
-    const formDataObject = {
-        country: fd.get("country"),
-        title: fd.get("title"),
-        link: fd.get("link"),
-        arrivalDate: fd.get("arrival-date"),
-        departureDate: fd.get("departure-date"),
-        image: imageBase64,
-        description: fd.get("description"),
-    };
+  const formDataObject = {
+    country: fd.get("country"),
+    title: fd.get("title"),
+    link: fd.get("link"),
+    arrivalDate: fd.get("arrival-date"),
+    departureDate: fd.get("departure-date"),
+    image: imageBase64,
+    description: fd.get("description"),
+  }
 
-    fetch(`http://localhost:3009/destinations/${destinationId}`, {
-        method: "PUT",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formDataObject),
-    })
+  fetch(`http://localhost:3009/destinations/${destinationId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formDataObject),
+  })
     .then((response) => {
-        if (response.status === 200) {
-            alert("Destination updated successfully!");
-            window.location.href = "/";
-        } else {
-            alert("Failed to update destination.");
-        }
+      if (response.status === 200) {
+        alert("Destination updated successfully!")
+        window.location.href = "/"
+      } else {
+        alert("Failed to update destination.")
+      }
     })
     .catch((error) => {
-        console.error("Error:", error);
-        alert("An error occurred while updating the destination.");
-    });
+      console.error("Error:", error)
+      alert("An error occurred while updating the destination.")
+    })
 }
 
 function resetFields() {
-    // Add code to reset form fields if needed.
+  // Add code to reset form fields if needed.
 }
 
 function fileToBase64(file) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
 
-        reader.onload = () => {
-            resolve(reader.result);
-        };
+    reader.onload = () => {
+      resolve(reader.result)
+    }
 
-        reader.onerror = () => {
-            reject(new Error("Error reading the file."));
-        };
+    reader.onerror = () => {
+      reject(new Error("Error reading the file."))
+    }
 
-        reader.readAsDataURL(file);
-    });
+    reader.readAsDataURL(file)
+  })
 }
 function getDestinationIdFromURL() {
-    const url = window.location.href;
-    const idIndex = url.lastIndexOf("=");
+  const url = window.location.href
+  const idIndex = url.lastIndexOf("=")
 
-    if (idIndex !== -1) {
-        const destinationId = url.slice(idIndex + 1);
-        console.log("destination id extracted "+ destinationId);
-        return destinationId;
-    } else {
-        console.log(`Invalid or missing Destination ID in URL`);
-        return null;
-    }
+  if (idIndex !== -1) {
+    const destinationId = url.slice(idIndex + 1)
+    console.log("destination id extracted " + destinationId)
+    return destinationId
+  } else {
+    console.log(`Invalid or missing Destination ID in URL`)
+    return null
+  }
 }
-
 
 async function loadDestination() {
     const destinationId = getDestinationIdFromURL();
@@ -120,4 +119,5 @@ async function loadDestination() {
             console.error("Error loading destination:", error);
         }
     }
+  }
 }

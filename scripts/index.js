@@ -28,7 +28,6 @@ async function deleteDestination(id) {
 }
 
 function renderDestination(destination) {
-  console.log(destination)
   const destinationContainer = document.getElementById("destination-container")
 
   const dividerLine = document.createElement("div")
@@ -90,8 +89,12 @@ function renderDestination(destination) {
   editButton.classList.add("material-symbols-outlined")
   editButton.classList.add("action-icon")
   editButton.innerText = "edit"
-  editButton.addEventListener("click", async () => {
-    // To do
+  editButton.dataset.destinationId = destination._id;
+  editButton.addEventListener("click", () => {
+    const destinationId = editButton.dataset.destinationId;
+  const updateUrl = `/update/index.html?id=${destinationId}`;
+  console.log("Redirecting to:", updateUrl);
+  window.location.href = updateUrl;
   })
 
   prefixElement.appendChild(countrySpan)
@@ -105,13 +108,15 @@ function renderDestination(destination) {
 
   const dateSpan = document.createElement("span")
   dateSpan.classList.add("date")
-  dateSpan.textContent = `${destination["arrivalDate"].split("T")[0]} - ${
-    destination["departureDate"].split("T")[0]
+  dateSpan.textContent = `${destination["arrivalDate"]?.split("T")[0]} - ${
+    destination["departureDate"]?.split("T")[0]
   }`
 
   const descriptionElement = document.createElement("p")
   descriptionElement.classList.add("description")
   descriptionElement.textContent = destination.description
+
+
 
   contentElement.appendChild(prefixElement)
   contentElement.appendChild(titleElement)

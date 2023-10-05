@@ -107,9 +107,16 @@ function renderDestination(destination) {
   titleElement.textContent = destination.title
 
   const dateSpan = document.createElement("span")
+  dateSpan.classList.add("date")
+  dateSpan.textContent = `${destination["arrivalDate"]?.split("T")[0]} - ${
+    destination["departureDate"]?.split("T")[0]
+  }`
+
   const descriptionElement = document.createElement("p")
   descriptionElement.classList.add("description")
   descriptionElement.textContent = destination.description
+
+
 
   contentElement.appendChild(prefixElement)
   contentElement.appendChild(titleElement)

@@ -83,33 +83,41 @@ function getDestinationIdFromURL() {
 }
 
 async function loadDestination() {
-  const destinationId = getDestinationIdFromURL()
+    const destinationId = getDestinationIdFromURL();
+    const imageContainer = document.getElementById("destination-container")
+    imageContainer.classList.add("destination")
 
-  if (destinationId) {
-    try {
-      const response = await fetch(
-        `http://localhost:3009/destinations/${destinationId}`
-      )
-      if (response.status === 200) {
-        const destinationData = await response.json()
 
-        console.log(destinationData.arrivalDate)
+    if (destinationId) {
+        try {
+            const response = await fetch(`http://localhost:3009/destinations/${destinationId}`);
+            if (response.status === 200) {
+                const destinationData = await response.json();
 
-        // Populate form fields with destination data
-        const form = document.getElementById("destination-form")
-        form.elements.country.value = destinationData.country || ""
-        form.elements.title.value = destinationData.title || ""
-        form.elements.link.value = destinationData.link || ""
-        form.elements["arrival-date"].value =
-          destinationData.arrivalDate?.split("T")[0] || ""
-        form.elements["departure-date"].value =
-          destinationData.departureDate?.split("T")[0] || ""
-        form.elements.description.value = destinationData.description || ""
-      } else {
-        console.error("Failed to fetch destination data.")
-      }
-    } catch (error) {
-      console.error("Error loading destination:", error)
+                // Populate form fields with destination data
+                const form = document.getElementById("destination-form");
+                form.elements.country.value = destinationData.country || "";
+                form.elements.title.value = destinationData.title || "";
+                form.elements.link.value = destinationData.link || "";
+                form.elements["arrival-date"].value = destinationData.arrivalDate || "";
+                form.elements["departure-date"].value = destinationData.departureDate || "";
+                form.elements.description.value = destinationData.description || "";
+
+                const imageElement = document.createElement("img")
+                if (destinationData.image == "data:application/octet-stream;base64,") {
+                    imageElement.src = "../default.png"
+                } else {
+                    imageElement.src = destinationData.image
+                }
+                imageElement.alt = destinationData.title
+                imageContainer.appendChild(imageElement)
+
+            } else {
+                console.error("Failed to fetch destination data.");
+            }
+        } catch (error) {
+            console.error("Error loading destination:", error);
+        }
     }
   }
 }

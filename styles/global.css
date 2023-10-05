@@ -20,22 +20,31 @@ header {
     font-size: 20px;
     line-height: 24px;
     font-weight: 500;
-    /* flex-direction: row; */
     gap: 12px;
     padding: 12px;
-}
-
-div.header-wrapper {
     display: flex;
     justify-content: space-between;
-}
-
-nav.auth-nav {
-    /* margin-left: auto;
-    flex-direction: row; */
+    align-items: center;
+  }
+  
+  /* Header wrapper (for logo and text) */
+  .header-wrapper {
     display: flex;
     align-items: center;
-}
+    justify-content: flex-start;
+    gap: 5px;
+    width: 100%;
+  }
+  
+  /* Navigation styling */
+  nav.auth-nav {
+    display: flex;
+    gap: 10px; /* Adjust the gap between buttons */
+    align-items: center;
+    place-self: flex-end;
+    margin-left: auto;
+    margin-right: 0;
+  }
 
 .divider {
     width: 100%;
@@ -78,7 +87,6 @@ button.add-entry {
 
 #login-btn, #signup-btn, #logout-btn{
     padding: 5px 15px;
-    margin-left: 20px;
     height: 30px;
 }
 

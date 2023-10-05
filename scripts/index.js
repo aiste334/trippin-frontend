@@ -4,7 +4,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const signupButton = document.getElementById("signup-btn");
   const logoutButton = document.getElementById("logout-btn");
 
-
   addButton.addEventListener("click", () => {
     window.location.href = "/add"
   })
@@ -35,22 +34,10 @@ window.onload = () => {
   };
 }
 
-
-
 async function logOut() {
   try {
-
-    // const accessTokenExists = isAccessTokenExists();
-    //   if (accessTokenExists) {
-    //     console.log("Access Token exists in cookies.");
-    //   } else {
-    //     console.log("Access Token does not exist in cookies.");
-    //   }
-
-
     document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     window.location.href = "/";
-    // Logout was successful
   } catch (err) {
     console.error("Error:", err);
     alert("An error occurred while logging out.");
@@ -72,6 +59,9 @@ async function getDestinations() {
 async function deleteDestination(id) {
   const response = await fetch(`http://localhost:3009/destinations/${id}`, {
     method: "DELETE",
+    headers: {
+      "Set-Cookie": document.cookie,
+    }
   })
   return response.status === 204
 }
@@ -119,6 +109,7 @@ function renderDestination(destination) {
   const deleteButton = document.createElement("span")
   deleteButton.classList.add("material-symbols-outlined")
   deleteButton.classList.add("action-icon")
+  deleteButton.classList.add("authorized")
   deleteButton.innerText = "delete"
   deleteButton.addEventListener("click", async () => {
     if (!confirm("Are you sure you want to delete this destination?")) return
@@ -150,7 +141,7 @@ function renderDestination(destination) {
   prefixElement.appendChild(countrySpan)
   prefixElement.appendChild(googleMapsLink)
   prefixElement.appendChild(editButton)
-  prefixElement.appendChild(deleteButton)
+  if(isAccessTokenExists()){  prefixElement.appendChild(deleteButton)  }
 
   const titleElement = document.createElement("h2")
   titleElement.classList.add("title")
@@ -165,8 +156,6 @@ function renderDestination(destination) {
   const descriptionElement = document.createElement("p")
   descriptionElement.classList.add("description")
   descriptionElement.textContent = destination.description
-
-
 
   contentElement.appendChild(prefixElement)
   contentElement.appendChild(titleElement)

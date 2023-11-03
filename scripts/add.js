@@ -2,11 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const cancelButton = document.querySelector("#cancel")
   const saveButton = document.querySelector("#save")
 
-  // cancelButton.addEventListener("click", () => {
-  //   window.location.href = "/"
-  // })
+  cancelButton.addEventListener("click", () => {
+    window.location.href = "/"
+  })
 
-  //saveButton.addEventListener("click", saveDestination)
+  saveButton.addEventListener("click", saveDestination)
 })
 
 async function saveDestination(e) {
